@@ -16,7 +16,7 @@ import com.supercilex.robotscouter.Bridge
 import com.supercilex.robotscouter.IntegratedScoutListFragmentCompanion
 import com.supercilex.robotscouter.ScoutListFragmentCompanionBase.Companion.TAG
 import com.supercilex.robotscouter.TeamSelectionListener
-import com.supercilex.robotscouter.core.data.mainHandler
+import com.supercilex.robotscouter.core.mainHandler
 import com.supercilex.robotscouter.core.ui.isInTabletMode
 import com.supercilex.robotscouter.core.unsafeLazy
 import org.jetbrains.anko.find

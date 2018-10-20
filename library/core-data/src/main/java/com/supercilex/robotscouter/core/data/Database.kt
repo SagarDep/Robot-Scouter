@@ -42,8 +42,10 @@ import com.supercilex.robotscouter.core.data.model.teamsQueryGenerator
 import com.supercilex.robotscouter.core.data.model.updateTemplateId
 import com.supercilex.robotscouter.core.data.model.userPrefsQueryGenerator
 import com.supercilex.robotscouter.core.data.model.userRef
+import com.supercilex.robotscouter.core.isMain
 import com.supercilex.robotscouter.core.logCrashLog
 import com.supercilex.robotscouter.core.logFailures
+import com.supercilex.robotscouter.core.mainHandler
 import com.supercilex.robotscouter.core.model.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
