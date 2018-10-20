@@ -6,8 +6,8 @@ import android.view.Window
 import androidx.fragment.app.transaction
 import com.supercilex.robotscouter.TeamSelectionListener
 import com.supercilex.robotscouter.core.ValueSeeker
-import com.supercilex.robotscouter.core.data.mainHandler
 import com.supercilex.robotscouter.core.data.toBundle
+import com.supercilex.robotscouter.core.mainHandler
 import com.supercilex.robotscouter.core.model.Team
 import com.supercilex.robotscouter.core.ui.animatePopReveal
 import com.supercilex.robotscouter.core.ui.isInTabletMode
