@@ -10,6 +10,9 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CompletionHandler
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.plus
+import kotlin.apply
 import kotlin.coroutines.AbstractCoroutineContextElement
 import kotlin.coroutines.CoroutineContext
 
@@ -61,6 +64,11 @@ object CrashLogger : OnFailureListener, OnCompleteListener<Any>, CompletionHandl
         }
     }
 }
+
+val LoggingExceptionHandler = CoroutineExceptionHandler { _, t ->
+    CrashLogger.invoke(t)
+}
+val AppScope = GlobalScope + LoggingExceptionHandler
 
 @Keep
 internal class LoggingHandler : AbstractCoroutineContextElement(CoroutineExceptionHandler),
