@@ -3,9 +3,14 @@ package com.supercilex.robotscouter.core.data
 import android.content.Intent
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.supercilex.robotscouter.core.LoggingExceptionHandler
 import com.supercilex.robotscouter.core.model.Team
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancel
 
 const val TEAM_KEY = "com.supercilex.robotscouter.data.util.Team"
 const val TEAMS_KEY = "com.supercilex.robotscouter.data.util.Teams"
@@ -26,17 +31,19 @@ fun Team.toBundle() = bundleOf(TEAM_KEY to this@toBundle)
 
 fun Intent.putExtra(teams: List<Team>): Intent = putExtra(TEAMS_KEY, ArrayList(teams))
 
-fun List<Team>.toBundle() = bundleOf(TEAMS_KEY to ArrayList(this@toBundle))
-
 fun Bundle.getTeam(): Team = checkNotNull(getParcelable(TEAM_KEY))
 
 fun Intent.getTeamListExtra(): List<Team> = getParcelableArrayListExtra(TEAMS_KEY)
 
-fun Bundle.getTeamList(): List<Team> = checkNotNull(getParcelableArrayList(TEAMS_KEY))
-
 fun getTabIdBundle(key: String?) = bundleOf(TAB_KEY to key)
 
 fun getTabId(bundle: Bundle?): String? = bundle?.getString(TAB_KEY)
+
+class ViewModelBases : ViewModel(), CoroutineScope {
+    override val coroutineContext = Job() + LoggingExceptionHandler
+
+    override fun onCleared() = coroutineContext.cancel()
+}
 
 fun getScoutBundle(
         team: Team,

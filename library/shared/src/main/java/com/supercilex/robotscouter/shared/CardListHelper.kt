@@ -2,12 +2,11 @@ package com.supercilex.robotscouter.shared
 
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.common.ChangeEventType
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.supercilex.robotscouter.core.ui.CardMetric
 import com.supercilex.robotscouter.core.ui.notifyItemsNoChangeAnimation
 
 open class CardListHelper(
-        private val adapter: FirestoreRecyclerAdapter<*, *>,
+        private val adapter: RecyclerView.Adapter<*>,
         private val recyclerView: RecyclerView
 ) {
     fun onChildChanged(type: ChangeEventType, index: Int) {

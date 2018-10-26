@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    compile(Config.Libs.Kotlin.common)
+    implementation(Config.Libs.Kotlin.common)
 }

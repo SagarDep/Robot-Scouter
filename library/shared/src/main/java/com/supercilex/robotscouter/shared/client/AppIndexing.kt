@@ -15,27 +15,29 @@ import com.supercilex.robotscouter.core.data.model.getTemplatesQuery
 import com.supercilex.robotscouter.core.data.model.scoutParser
 import com.supercilex.robotscouter.core.data.teams
 import com.supercilex.robotscouter.core.data.waitForChange
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 internal class AppIndexingService : JobIntentService() {
     override fun onHandleWork(intent: Intent) {
-        runBlocking {
-            try {
+        try {
+            runBlocking {
                 onSignedIn()
                 FirebaseAppIndex.getInstance().removeAll().await()
 
-                awaitAll(async { getUpdateTeamsTask() }, async { getUpdateTemplatesTask() })
-            } catch (e: Exception) {
-                CrashLogger.onFailure(e)
+                launch { getUpdateTeamsTask() }
+                launch { getUpdateTemplatesTask() }
             }
+        } catch (e: Exception) {
+            CrashLogger.onFailure(e)
         }
+        println("all")
     }
 
     private suspend fun getUpdateTeamsTask() {
         val indexables = teams.waitForChange().map { it.indexable }
         FirebaseAppIndex.getInstance().update(*indexables.toTypedArray()).await()
+        println("don1")
     }
 
     private suspend fun getUpdateTemplatesTask() {
@@ -46,6 +48,7 @@ internal class AppIndexingService : JobIntentService() {
             )
         }
         FirebaseAppIndex.getInstance().update(*indexables.toTypedArray()).await()
+        println("don2")
     }
 
     companion object {
